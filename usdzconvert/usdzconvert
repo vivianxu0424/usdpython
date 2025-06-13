@@ -60,6 +60,7 @@ class ParserOut:
         self.loop = False
         self.noloop = False
         self.useObjMtl = False
+        self.useMaterialX = False
         material = usdUtils.Material('')
         self.materials.append(material)
 
@@ -71,6 +72,7 @@ class OpenParameters:
         self.searchPaths = None
         self.verbose = False
         self.metersPerUnit = 0 # set by converters
+        self.useMaterialX = False
 
 
 class Parser:
@@ -98,6 +100,7 @@ class Parser:
                    [-copytextures]\n\
                    [-metersPerUnit value]\n\
                    [-useObjMtl]\n\
+                   [-useMaterialX]\n\
                    [-preferredIblVersion value]\n\
                    [-loop]\n\
                    [-no-loop]\n\
@@ -332,6 +335,8 @@ class Parser:
                     self.out.noloop = True
                 elif '-useObjMtl' == argument:
                     self.out.useObjMtl = True
+                elif '-useMaterialX' == argument or '--usematerialx' == argument.lower():
+                    self.out.useMaterialX = True
                 elif '-h' == argument or '--help' == argument:
                     self.printHelpAndExit()
                 elif '-version' == argument or '--version' == argument:
@@ -634,6 +639,7 @@ def process(argumentList):
     openParameters.copyTextures = parserOut.copyTextures and not dstIsUsdz
     openParameters.searchPaths = parserOut.paths
     openParameters.verbose = parserOut.verbose
+    openParameters.useMaterialX = parserOut.useMaterialX
 
     srcIsUsd = False
     srcIsUsdz = False

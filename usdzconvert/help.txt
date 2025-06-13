@@ -18,6 +18,7 @@ optional arguments:
   -copytextures         Copy texture files (for .usd/usda/usdc) workflows
   -metersPerUnit value  Set metersPerUnit attribute with float value
   -useObjMtl            Load materials from mtl file for obj
+  -useMaterialX         Enable MaterialX materials
   -loop                 Set animation loop flag to 1
   -no-loop              Set animation loop flag to 0
   -m materialName       Subsequent material arguments apply to this material.
