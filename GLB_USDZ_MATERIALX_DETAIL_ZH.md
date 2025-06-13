@@ -4,11 +4,11 @@
 涵盖新增函数及需要调整的旧函数。
 
 ## 1. 新增命令行参数
-- 在 `ParserOut` 结构中增加 `useMaterialX` 字段，供命令行解析结果保存开关状态【F:usdzconvert/usdzconvert†L45-L64】。
-- `OpenParameters` 同样新增 `useMaterialX` 成员，便于在转换器阶段读取【F:usdzconvert/usdzconvert†L67-L73】。
-- `printUsage()` 输出中加入 `-useMaterialX` 选项说明【F:usdzconvert/usdzconvert†L91-L126】。
-- 参数解析逻辑检测 `-useMaterialX`，并设置 `ParserOut.useMaterialX` 的值【F:usdzconvert/usdzconvert†L318-L344】。
-- 调用 `usdStageWithGlTF` 时，将该开关写入 `OpenParameters` 并一并传递【F:usdzconvert/usdzconvert†L640-L649】。
+- 在 `ParserOut` 结构中增加 `useMaterialX` 字段，供命令行解析结果保存开关状态【F:usdzconvert/usdzconvert†L45-L65】。
+- `OpenParameters` 同样新增 `useMaterialX` 成员，便于在转换器阶段读取【F:usdzconvert/usdzconvert†L68-L75】。
+- `printUsage()` 输出中加入 `-useMaterialX` 选项说明【F:usdzconvert/usdzconvert†L93-L129】。
+- 参数解析逻辑检测 `-useMaterialX`，并设置 `ParserOut.useMaterialX` 的值【F:usdzconvert/usdzconvert†L324-L344】。
+- 调用 `usdStageWithGlTF` 时，将该开关写入 `OpenParameters` 并一并传递【F:usdzconvert/usdzconvert†L638-L649】。
 
 ## 2. `usdStageWithGlTF` 与 `glTFConverter`
 - `usdStageWithGlTF()` 函数新增 `useMaterialX` 参数，并在创建 `glTFConverter` 时传递【F:usdzconvert/usdStageWithGlTF.py†L1524-L1529】。

@@ -5,7 +5,7 @@
 计划在转换流程中新增对 **MaterialX Shader** 的支持。本文档概述该功能的设计思路。
 
 ## 1. 目标与原则
-- 保持现有 `usdzconvert` 使用方式不变，新增可选开关 `--use-materialx` 启用 MaterialX。
+- 保持现有 `usdzconvert` 使用方式不变，新增可选开关 `-useMaterialX` 启用 MaterialX。
 - 在 glTF 材质解析阶段，依据该开关构建对应的 **UsdShade.Material** 网络：
   - 默认仍生成 UsdPreviewSurface，以兼容旧流程。
   - 开启开关后，生成遵循 MaterialX 标准的节点和连接。
@@ -13,7 +13,7 @@
 - 代码层面尽量复用 `usdUtils.Material` 的结构，新增 `_createMaterialXShader()` 等私有方法实现具体节点构建。
 
 ## 2. 转换流程修改
-1. **命令行解析**：在 `usdzconvert/usdzconvert` 中加入 `--use-materialx` 选项，传递给 `usdStageWithGlTF.usdStageWithGlTF`。
+1. **命令行解析**：在 `usdzconvert/usdzconvert` 中加入 `-useMaterialX` 选项，传递给 `usdStageWithGlTF.usdStageWithGlTF`。
 2. **材质创建**：`usdStageWithGlTF.createMaterials()` 增加判断，根据开关选择调用 `Material.makeUsdMaterial()` 或新实现 `makeUsdMaterialX()`。
 3. **MaterialX 节点生成**：在 `usdUtils.Material` 内实现 `makeUsdMaterialX()`，步骤包括：
    - 创建 `UsdShade.Material` 实例。
