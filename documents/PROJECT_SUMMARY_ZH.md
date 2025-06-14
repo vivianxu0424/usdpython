@@ -10,11 +10,11 @@
 - 一组示例脚本以及若干辅助工具，如 `fixOpacity`、`usdzcreateassetlib`、`usdzaudioimport`
 
 ### 2. 环境配置
-推荐使用 conda 创建 Python 3.7 虚拟环境，并通过 pip 安装 `usd-core` 等依赖：
+推荐使用 conda 创建 Python 3.10 虚拟环境，并通过 pip 安装 `usd-core` 等依赖：
 
 ```bash
-conda create -n usdpython37 python=3.7
-conda activate usdpython37
+conda create -n usdpython310 python=3.10
+conda activate usdpython310
 pip install usd-core
 ```
 

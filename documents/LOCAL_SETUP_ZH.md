@@ -13,13 +13,13 @@ cd usdpython
 
 请将 `<your_name>` 替换为具体仓库地址中的用户名。
 
-## 2. 创建 Python 3.7 Conda 环境
+## 2. 创建 Python 3.10 Conda 环境
 
-项目依赖 Python 3.7，可使用 conda 创建并激活虚拟环境：
+项目依赖 Python 3.10，可使用 conda 创建并激活虚拟环境：
 
 ```bash
-conda create -n usdpython37 python=3.7
-conda activate usdpython37
+conda create -n usdpython310 python=3.10
+conda activate usdpython310
 ```
 
 ## 3. 安装依赖并配置环境
