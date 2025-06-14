@@ -652,7 +652,7 @@ def process(argumentList):
     elif '.gltf' == srcExt or '.glb' == srcExt:
         global usdStageWithGlTF_module
         usdStageWithGlTF_module = importlib.import_module("usdStageWithGlTF")
-        usdStage = usdStageWithGlTF_module.usdStageWithGlTF(srcPath, tmpPath, legacyModifier, openParameters)
+        usdStage = usdStageWithGlTF_module.usdStageWithGlTF(srcPath, tmpPath, legacyModifier, openParameters, parserOut.useMaterialX)
     elif '.fbx' == srcExt:
         global usdStageWithFbx_module
         usdStageWithFbx_module = importlib.import_module("usdStageWithFbx")
