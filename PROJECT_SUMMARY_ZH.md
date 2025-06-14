@@ -10,12 +10,26 @@
 - 一组示例脚本以及若干辅助工具，如 `fixOpacity`、`usdzcreateassetlib`、`usdzaudioimport`
 
 ### 2. 环境配置
-工具集基于 Python 3.7.9，仓库中提供 `USD.command` 脚本，用于在 macOS 环境下配置 `PATH` 和 `PYTHONPATH`。若需要使用 FBX 支持，可在该脚本中设置 Autodesk FBX SDK 的路径。
+推荐使用 conda 创建 Python 3.7 虚拟环境，并通过 pip 安装 `usd-core` 等依赖：
+
+```bash
+conda create -n usdpython37 python=3.7
+conda activate usdpython37
+pip install usd-core
+```
+
+随后将仓库中的 `usdzconvert` 目录加入 `PATH`，并验证工具是否可用：
+
+```bash
+export PATH=$PATH:/path/to/usdpython/usdzconvert
+usdzconvert -h
+```
+如需使用 FBX SDK，请自行在 `PYTHONPATH` 中加入其 Python 绑定路径。
 
 ### 3. 目录结构
 - `README.md`：项目文档及使用说明。
 - `LICENSE/`：项目许可证。
-- `USD.command`：配置环境的脚本。
+- `USD.command`：旧版环境配置脚本，可按需使用。
 - `samples/`：示例脚本目录，包含多个示例。
 - `usdzconvert/`：核心工具目录，包含转换脚本和各种辅助模块。
 
@@ -40,7 +54,7 @@
    位于 `samples/`，展示如何使用 USD Python API 创建 USD 资产，例如 `102_mesh.py` 展示如何生成一个立方体模型并保存为 USDZ。
 
 ### 5. 使用方式
-1. 在 macOS 中运行 `USD.command` 初始化环境，然后使用命令行执行各脚本。
+1. 依照“环境配置”章节创建并激活 conda 环境，安装依赖后确保 `usdzconvert` 在 `PATH` 中。
 2. 执行 `usdzconvert -h` 或其他脚本的 `-h` 选项可查看详细用法。
 3. 如需示例，可进入 `samples` 目录运行相应脚本，每个脚本会在 `assets` 子目录下生成 `.usd` 和 `.usdz` 文件，并打印生成的 USD 内容。
 
