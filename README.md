@@ -31,7 +31,9 @@ For more information, run
 `usdzconvert` includes an optional `-useMaterialX` switch. When enabled, the
 converter will store a flag in the conversion parameters so that later stages
 can generate MaterialX based shader graphs. The default behaviour continues to
-produce UsdPreviewSurface materials.
+produce UsdPreviewSurface materials. When generating a `.usdz` with this option,
+any `.mtlx` library files found in paths listed by the `MATERIALX_LIB_PATHS`
+environment variable are copied into the package.
 
 ### iOS 12 Compatibility
 

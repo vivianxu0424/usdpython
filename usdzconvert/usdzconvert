@@ -1,4 +1,5 @@
 #!/usr/bin/env python3.7
+import os
 import os.path
 from os import chdir
 import sys
@@ -554,6 +555,22 @@ def copyMaterialTextures(params, material, srcPath, dstPath, folder):
             input.file = basename
 
 
+def copyMaterialXLibraries(folder, verbose=False):
+    paths = os.environ.get('MATERIALX_LIB_PATHS')
+    if not paths:
+        return
+    for path in paths.split(os.pathsep):
+        if not path:
+            continue
+        if not os.path.isdir(path):
+            continue
+        for filename in os.listdir(path):
+            if filename.endswith('.mtlx'):
+                src = os.path.join(path, filename)
+                dst = os.path.join(folder, filename)
+                usdUtils.copy(src, dst, verbose)
+
+
 def createStageMetadata(params):
     if params.creator != '':
         params.usdStage.SetMetadataByDictKey("customLayerData", "creator", str(params.creator))
@@ -784,6 +801,8 @@ def process(argumentList):
 
     if dstIsUsdz:
         # construct .usdz archive from the .usdc file
+        if parserOut.useMaterialX:
+            copyMaterialXLibraries(tmpFolder, parserOut.verbose)
         UsdUtils.CreateNewARKitUsdzPackage(Sdf.AssetPath(tmpPath), dstPath)
     else:
         usdUtils.copy(tmpPath, dstPath)

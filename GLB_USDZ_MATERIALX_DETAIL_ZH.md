@@ -20,7 +20,7 @@
  - `_addMapToUsdMaterial()` 保持旧实现不变，另新增 `_addMapToMaterialX()` 处理 MaterialX 节点的贴图输入，可参考当前实现【F:usdzconvert/usdUtils.py†L498-L559】。
 
 ## 4. 调整材质创建流程
- - `createMaterials()` 在生成 `usdUtils.Material` 后，根据 `self.useMaterialX` 选择调用 `makeUsdMaterialX()` 或 `makeUsdMaterial()`【F:usdzconvert/usdStageWithGlTF.py†L633-L720】。
-- 若启用 MaterialX，打包 `.usdz` 时应同时复制所需的 `.mtlx` 库文件，确保运行时可以解析。
+- `createMaterials()` 在生成 `usdUtils.Material` 后，根据 `self.useMaterialX` 选择调用 `makeUsdMaterialX()` 或 `makeUsdMaterial()`【F:usdzconvert/usdStageWithGlTF.py†L633-L720】。
+- 若启用 MaterialX，打包 `.usdz` 时应同时复制所需的 `.mtlx` 库文件，确保运行时可以解析【F:usdzconvert/usdzconvert†L802-L806】。
 
 通过以上修改，命令行添加 `-useMaterialX` 后即可在转换阶段生成基于 MaterialX 的 `UsdShade.Material` 网络，同时保持旧接口与 UsdPreviewSurface 的兼容。 
