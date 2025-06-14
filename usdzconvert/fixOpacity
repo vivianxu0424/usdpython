@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python3.10
 
 # Fix opacity wiring for usdz generated with xcode's usdz_converter 
 import zipfile

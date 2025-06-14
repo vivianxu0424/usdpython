@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3.10
 
 # Creates a scene that references a simple scene graph with overrides
 

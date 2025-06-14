@@ -12,11 +12,11 @@ This package installs to /Applications/usdpython and contains
 After installation you can relocate the files.
 Many important documents can be found in the `documents` folder.
 
-IMPORTANT! These tools require Python 3.7. We recommend creating a conda environment and installing the USD runtime with pip:
+IMPORTANT! These tools require Python 3.10. We recommend creating a conda environment and installing the USD runtime with pip:
 
 ```bash
-conda create -n usdpython37 python=3.7
-conda activate usdpython37
+conda create -n usdpython310 python=3.10
+conda activate usdpython310
 pip install usd-core numpy
 ```
 
