@@ -11,7 +11,7 @@
 - 调用 `usdStageWithGlTF` 时，将该开关写入 `OpenParameters` 并一并传递【F:usdzconvert/usdzconvert†L638-L649】。
 
 ## 2. `usdStageWithGlTF` 与 `glTFConverter`
-- `usdStageWithGlTF()` 函数新增 `useMaterialX` 参数，并在创建 `glTFConverter` 时传递【F:usdzconvert/usdStageWithGlTF.py†L1524-L1529】。
+- `usdStageWithGlTF()` 函数新增 `useMaterialX` 参数，并在创建 `glTFConverter` 时传递【F:usdzconvert/usdStageWithGlTF.py†L1525-L1530】。
 - 在 `glTFConverter.__init__()` 中保存此标记，例如 `self.useMaterialX = openParameters.useMaterialX`，以便后续流程判断【F:usdzconvert/usdStageWithGlTF.py†L398-L418】。
 
 ## 3. MaterialX 材质生成

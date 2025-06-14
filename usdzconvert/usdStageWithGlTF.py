@@ -396,7 +396,7 @@ class Accessor:
 
 
 class glTFConverter:
-    def __init__(self, gltfPath, usdPath, legacyModifier, openParameters):
+    def __init__(self, gltfPath, usdPath, legacyModifier, openParameters, useMaterialX=False):
         self.usdStage = None
         self.buffers = []
         self.gltf = None
@@ -406,6 +406,7 @@ class glTFConverter:
         self.nodeNames = {} # to avoid duplicate node names
         self.copyTextures = openParameters.copyTextures
         self.verbose = openParameters.verbose
+        self.useMaterialX = useMaterialX
         self.legacyModifier = legacyModifier # for iOS 12 compatibility
         self.skeletonByNode = {} # collect skinned mesh to construct later 
         self.blendShapeByNode = {} # collect meshes with blend shapes to construct later 
@@ -1521,10 +1522,10 @@ class glTFConverter:
 
 
 
-def usdStageWithGlTF(gltfPath, usdPath, legacyModifier, openParameters):
+def usdStageWithGlTF(gltfPath, usdPath, legacyModifier, openParameters, useMaterialX=False):
     if usdStageWithGlTFLoaded == False:
         return None
 
-    converter = glTFConverter(gltfPath, usdPath, legacyModifier, openParameters)
+    converter = glTFConverter(gltfPath, usdPath, legacyModifier, openParameters, useMaterialX)
     return converter.makeUsdStage()
 

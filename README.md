@@ -22,9 +22,16 @@ https://developer.apple.com/videos/play/wwdc2019/602/
 
 `usdzconvert` is a Python script that converts obj, gltf, fbx, abc, and usda/usdc/usd assets to usdz.
 It also performs asset validation on the generated usdz.
-For more information, run 
+For more information, run
 
     usdzconvert -h
+
+### MaterialX Support
+
+`usdzconvert` includes an optional `-useMaterialX` switch. When enabled, the
+converter will store a flag in the conversion parameters so that later stages
+can generate MaterialX based shader graphs. The default behaviour continues to
+produce UsdPreviewSurface materials.
 
 ### iOS 12 Compatibility
 

@@ -4,7 +4,7 @@
 
 ## 1. 基本流程概览
 1. `usdzconvert` 检测到输入扩展名为 `.gltf`/`.glb` 后，导入 `usdStageWithGlTF` 模块并执行 `usdStageWithGlTF()`【F:usdzconvert/usdzconvert†L640-L652】。
-2. 该函数实例化 `glTFConverter`，随后调用 `makeUsdStage()` 构建 `Usd.Stage`【F:usdzconvert/usdStageWithGlTF.py†L1524-L1534】。
+2. 该函数实例化 `glTFConverter`，随后调用 `makeUsdStage()` 构建 `Usd.Stage`【F:usdzconvert/usdStageWithGlTF.py†L1525-L1530】。
 3. `makeUsdStage()` 在内部依次执行 `createMaterials()`、节点和动画处理，最终 `asset.finalize()` 完成 Stage 设置【F:usdzconvert/usdStageWithGlTF.py†L1504-L1523】。
 
 ## 2. 解析 glb 并保存贴图
