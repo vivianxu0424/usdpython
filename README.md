@@ -10,6 +10,7 @@ This package installs to /Applications/usdpython and contains
 - `usdzaudioimport`, a standalone tool to attach audio files to usdz files
 
 After installation you can relocate the files.
+Many important documents can be found in the `documents` folder.
 
 IMPORTANT! These tools require Python 3.7. We recommend creating a conda environment and installing the USD runtime with pip:
 
