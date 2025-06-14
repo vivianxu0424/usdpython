@@ -11,9 +11,25 @@ This package installs to /Applications/usdpython and contains
 
 After installation you can relocate the files.
 
-IMPORTANT! This version of USD Python tools uses Python 3.7. You can download and install Python 3.7.9 (recommended) from https://www.python.org/downloads/release/python-379/.
+IMPORTANT! These tools require Python 3.7. We recommend creating a conda environment and installing the USD runtime with pip:
 
-The easiest way to start using these command-line tools is to double-click `USD.command` in the Finder. This will open a Terminal window with all necessary environment variables set.
+```bash
+conda create -n usdpython37 python=3.7
+conda activate usdpython37
+pip install usd-core
+```
+
+Add the `usdzconvert` directory from this repository to your `PATH` so the command can be executed directly:
+
+```bash
+export PATH=$PATH:/path/to/usdpython/usdzconvert
+```
+
+You can verify the setup by running:
+
+```bash
+usdzconvert -h
+```
 
 For more details, including demos, see the WWDC 2019 session "Working with USD": 
 https://developer.apple.com/videos/play/wwdc2019/602/
@@ -44,12 +60,9 @@ If your Python environment is missing PIL, you can install it by running:
 
 ### FBX Support
 
-Note that FBX support in `usdzconvert` requires both Autodesk's FBX SDK and FBX Python bindings to be installed on your system.
-To make FBX bindings available to Python, uncomment the line 
+Note that FBX support in `usdzconvert` requires both Autodesk's FBX SDK and FBX Python bindings to be installed on your system. Ensure the bindings are on `PYTHONPATH`, for example:
 
     export PYTHONPATH=$PYTHONPATH:"/Applications/Autodesk/FBX Python SDK/2020.2.1/lib/Python37_x64"
-
-in `USD.command`, and adjust the path to point to the location of fbx.so (for Python 3.7).
 
 ## usdARKitChecker
 
@@ -63,28 +76,13 @@ Currently `usdARKitChecker` consists of three parts:
 - mesh attribute validation
 - UsdPreviewSurface material validation
 
-## Precompiled macOS Python Modules for Pixar's USD Library (Version 19.11)
+## Python Package
 
-This library was compiled using version 3.7.9 of Python.
+The USD runtime is delivered via the `usd-core` package installed in the steps above. After activating the conda environment and installing the package, you can import `pxr` modules directly:
 
-This library was compiled using version 22.03 of [the public USD GitHub repository](http://openusd.org) with the following build script arguments (see USDPython/README.md for further details):
-
-    python3.7 USD/build_scripts/build_usd.py --build-args TBB,extra_inc=big_iron.inc --python --no-imaging --docs --no-usdview --build-monolithic USDPython
-
-If you prefer to set your environment variables directly , 
-
-To start using USD in Python, set your PATH and PYTHONPATH variables as follows (replace `<PATH_TO_USDPYTHON>` with the path to this USDPython folder):
-
-    export PATH=$PATH:<PATH_TO_USDPYTHON>/USD
-    export PYTHONPATH=$PYTHONPATH:<PATH_TO_USDPYTHON>/USD/lib/python
-
-You should then be able to start using the USD library in Python 3.7:
-
-    > python3.7
-    Python 3.7.9 (v3.7.9:13c94747c7, Aug 15 2020, 01:31:08)
-    Type "help", "copyright", "credits" or "license" for more information.
-    >>> import pxr
-    >>> 
+```bash
+python -c "import pxr; print('USD available')"
+```
 
 ## Samples
 
