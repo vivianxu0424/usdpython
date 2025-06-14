@@ -19,7 +19,7 @@
    - 创建 `UsdShade.Material` 实例。
    - 调用 `_createMaterialXShader()` 生成 `nd_standard_surface` 节点，并根据贴图或常量输入连接相关端口（如 `base_color`, `metalness`, `roughness`）。
    - 将生成的 `materialXShader` 的 `out` 输出连接到 `surface`。
-4. **材质库依赖**：打包 usdz 时将所需的 MaterialX `.mtlx` 库文件一并复制到包内，以便运行时解析。
+4. **材质库依赖**：打包 usdz 时将所需的 MaterialX `.mtlx` 库文件一并复制到包内，以便运行时解析【F:usdzconvert/usdzconvert†L802-L806】。
 5. **向后兼容**：若目标查看器不支持 MaterialX，可在命令行关闭该功能，或在生成的 USD 中同时保留 PreviewSurface 供回退使用。
 
 ## 3. 后续工作
