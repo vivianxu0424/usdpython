@@ -27,7 +27,7 @@ conda activate usdpython310
 在激活的虚拟环境中安装所需包，并将 `usdzconvert` 目录加入 `PATH`：
 
 ```bash
-pip install usd-core pytest
+pip install usd-core numpy pytest
 export PATH=$PATH:/path/to/usdpython/usdzconvert
 ```
 

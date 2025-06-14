@@ -4,12 +4,9 @@ import sys
 import types
 from pathlib import Path
 
-# stub modules for pxr and numpy
+# stub module for pxr
 pxr_stub = types.ModuleType('pxr')
 sys.modules.setdefault('pxr', pxr_stub)
-
-numpy_stub = types.ModuleType('numpy')
-sys.modules.setdefault('numpy', numpy_stub)
 
 # stub usdUtils with minimal structures
 usdUtils_stub = types.ModuleType('usdUtils')

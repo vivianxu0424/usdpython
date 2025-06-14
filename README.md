@@ -17,7 +17,7 @@ IMPORTANT! These tools require Python 3.10. We recommend creating a conda enviro
 ```bash
 conda create -n usdpython310 python=3.10
 conda activate usdpython310
-pip install usd-core
+pip install usd-core numpy
 ```
 
 Add the `usdzconvert` directory from this repository to your `PATH` so the command can be executed directly:

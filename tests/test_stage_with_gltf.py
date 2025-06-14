@@ -4,7 +4,7 @@ import sys
 import types
 from pathlib import Path
 
-# stub modules for pxr, usdUtils and numpy
+# stub modules for pxr and usdUtils
 pxr_stub = types.ModuleType('pxr')
 sys.modules.setdefault('pxr', pxr_stub)
 
@@ -27,9 +27,6 @@ usdUtils_stub.ShapeBlending = lambda *a, **k: types.SimpleNamespace()
 usdUtils_stub.printError = lambda *a, **k: None
 usdUtils_stub.printWarning = lambda *a, **k: None
 sys.modules['usdUtils'] = usdUtils_stub
-
-numpy_stub = types.ModuleType('numpy')
-sys.modules.setdefault('numpy', numpy_stub)
 
 # load usdStageWithGlTF as module
 script_path = Path(__file__).resolve().parents[1] / 'usdzconvert' / 'usdStageWithGlTF.py'
