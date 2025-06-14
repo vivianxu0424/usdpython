@@ -16,7 +16,7 @@
   - 普通文件 URI 情况下，会将原始图片复制或重命名到目标目录【F:usdzconvert/usdStageWithGlTF.py†L549-L562】。
 
 ## 3. 构建材质输入
-`createMaterials()` 遍历 glTF 材质并对每个通道调用 `processTexture()` 或写入常量值【F:usdzconvert/usdStageWithGlTF.py†L632-L716】。其中：
+`createMaterials()` 遍历 glTF 材质并对每个通道调用 `processTexture()` 或写入常量值【F:usdzconvert/usdStageWithGlTF.py†L633-L720】。其中：
 - 根据 `sampler` 设置 `wrapS`、`wrapT` 包裹模式【F:usdzconvert/usdStageWithGlTF.py†L577-L587】。
 - 如果检测到 `KHR_texture_transform` 扩展，则通过 `convertUVTransformForUSD()` 生成适配 USD 的变换参数并构造 `usdUtils.MapTransform`【F:usdzconvert/usdStageWithGlTF.py†L591-L602】。
 - `processTexture()` 最终向 `usdUtils.Material` 的 `inputs` 字典写入 `usdUtils.Map`，记录贴图文件路径、UV 集名称及变换信息【F:usdzconvert/usdStageWithGlTF.py†L603-L604】。

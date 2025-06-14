@@ -306,6 +306,19 @@ class Material:
         self.updateUsdMaterial(usdMaterial, surfaceShader, asset.usdStage)
         return usdMaterial
 
+    def makeUsdMaterialX(self, asset):
+        matPath = self.path if self.path else asset.getMaterialsPath() + '/' + self.name
+        usdMaterial = UsdShade.Material.Define(asset.usdStage, matPath)
+        surfaceShader = self._createMaterialXShader(usdMaterial, asset.usdStage)
+
+        if self.isEmpty():
+            return usdMaterial
+
+        self._makeTextureShaderNames()
+        for inputIdx in range(len(Input.names)):
+            self._addMapToMaterialX(inputIdx, surfaceShader, asset.usdStage)
+        return usdMaterial
+
 
     # private methods:
 
@@ -504,6 +517,40 @@ class Material:
                 uvInput.Set(map.texCoordSet)
             matPath = str(usdMaterial.GetPath())
             textureShader = self._makeUsdUVTexture(matPath, map, inputName, channels, uvInput, usdStage)
+            surfaceShader.CreateInput(inputName, inputType).ConnectToSource(textureShader.GetOutput(channels))
+        elif isinstance(input, list):
+            gfVec3d = Gf.Vec3d(float(input[0]), float(input[1]), float(input[2]))
+            surfaceShader.CreateInput(inputName, inputType).Set(gfVec3d)
+        else:
+            surfaceShader.CreateInput(inputName, inputType).Set(float(input))
+
+    def _createMaterialXShader(self, usdMaterial, usdStage):
+        matPath = str(usdMaterial.GetPath())
+        shader = UsdShade.Shader.Define(usdStage, matPath + '/materialXShader')
+        shader.CreateIdAttr('ND_standard_surface_surfaceshader')
+        surfaceOutput = shader.CreateOutput('out', Sdf.ValueTypeNames.Token)
+        usdMaterial.CreateOutput('surface', Sdf.ValueTypeNames.Token).ConnectToSource(surfaceOutput)
+        if self.opacityThreshold is not None:
+            shader.CreateInput('opacity_threshold', Sdf.ValueTypeNames.Float).Set(float(self.opacityThreshold))
+        return shader
+
+    def _addMapToMaterialX(self, inputIdx, surfaceShader, usdStage):
+        inputName = Input.names[inputIdx]
+        if inputName not in self.inputs:
+            return
+
+        if self._isDefaultValue(inputName):
+            return
+
+        input = self.inputs[inputName]
+        inputType = Input.types[inputIdx]
+
+        if isinstance(input, Map):
+            map = input
+            defaultChannels = Input.channels[inputIdx]
+            channels = map.channels if len(map.channels) == len(defaultChannels) else defaultChannels
+            matPath = str(surfaceShader.GetPath())
+            textureShader = self._makeUsdUVTexture(matPath, map, inputName, channels, None, usdStage)
             surfaceShader.CreateInput(inputName, inputType).ConnectToSource(textureShader.GetOutput(channels))
         elif isinstance(input, list):
             gfVec3d = Gf.Vec3d(float(input[0]), float(input[1]), float(input[2]))

@@ -17,7 +17,7 @@ for gltfMaterial in self.gltf['materials'] if 'materials' in self.gltf else []:
     usdMaterial = material.makeUsdMaterial(self.asset)
     self.usdMaterials.append(usdMaterial)
 ```
-上述逻辑位于文件 `usdStageWithGlTF.py` 的 632-716 行【F:usdzconvert/usdStageWithGlTF.py†L632-L716】。
+上述逻辑位于文件 `usdStageWithGlTF.py` 的 633-720 行【F:usdzconvert/usdStageWithGlTF.py†L633-L720】。
 
 在该函数内部主要完成以下任务：
 1. 根据 `alphaMode` 设置 `opacity` 或 `opacityThreshold`。

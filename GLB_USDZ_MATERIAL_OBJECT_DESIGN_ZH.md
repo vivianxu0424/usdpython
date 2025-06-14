@@ -71,7 +71,7 @@ for gltfMaterial in self.gltf['materials'] if 'materials' in self.gltf else []:
     usdMaterial = material.makeUsdMaterial(self.asset)
     self.usdMaterials.append(usdMaterial)
 ```
-【F:usdzconvert/usdStageWithGlTF.py†L632-L716】
+【F:usdzconvert/usdStageWithGlTF.py†L633-L720】
 
 其中 `processTexture()` 负责解析 glTF 中的纹理引用、处理包裹模式及 `KHR_texture_transform` 扩展，并将结果写入 `Material.inputs`：
 ```python

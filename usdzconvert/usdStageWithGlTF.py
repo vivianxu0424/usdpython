@@ -713,7 +713,10 @@ class glTFConverter:
                 if 'emissiveFactor' in gltfMaterial:
                     material.inputs[usdUtils.InputName.emissiveColor] = emissiveFactor
 
-            usdMaterial = material.makeUsdMaterial(self.asset)
+            if self.useMaterialX:
+                usdMaterial = material.makeUsdMaterialX(self.asset)
+            else:
+                usdMaterial = material.makeUsdMaterial(self.asset)
             self.usdMaterials.append(usdMaterial)
 
 
