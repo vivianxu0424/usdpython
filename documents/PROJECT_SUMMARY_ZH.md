@@ -15,7 +15,7 @@
 ```bash
 conda create -n usdpython37 python=3.7
 conda activate usdpython37
-pip install usd-core
+pip install usd-core numpy
 ```
 
 随后将仓库中的 `usdzconvert` 目录加入 `PATH`，并验证工具是否可用：
