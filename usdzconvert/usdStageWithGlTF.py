@@ -664,6 +664,10 @@ class glTFConverter:
                     material.inputs[usdUtils.InputName.diffuseColor] = baseColorFactor
                     if isBlendOrMask:
                         material.inputs[usdUtils.InputName.opacity] = baseColorFactor[3]
+
+                # 始终记录不透明度，便于后续处理
+                if usdUtils.InputName.opacity not in material.inputs:
+                    material.inputs[usdUtils.InputName.opacity] = baseColorFactor[3]
                 
                 # metallic and roughness
                 roughnessFactor = pbr['roughnessFactor'] if 'roughnessFactor' in pbr else 1.0

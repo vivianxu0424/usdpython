@@ -36,6 +36,8 @@ for gltfMaterial in self.gltf['materials'] if 'materials' in self.gltf else []:
 3. `_addMapToUsdMaterial()` 会按需生成 `UsdPrimvarReader_float2`、`UsdTransform2d` 和 `UsdUVTexture` 等节点，实现贴图文件、UV 变换和包裹模式的接入。
 4. `_makeTextureShaderNames()` 用于合并共享纹理文件，避免重复节点。
 
+从 0.3 版本起，即使 `metallic`、`roughness` 或 `opacity` 等值与默认值相同，也会显式写入 `UsdPreviewSurface` 输入，便于在后续流程中准确读取材质信息。
+
 以下代码展示了 `_makeUsdUVTexture()` 构建贴图节点的部分逻辑（位于 353-453 行）：
 ```python
 uvReader = UsdShade.Shader.Define(usdStage, uvReaderPath)

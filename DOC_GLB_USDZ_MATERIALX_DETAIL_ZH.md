@@ -21,6 +21,19 @@
 
 ## 4. 调整材质创建流程
 - `createMaterials()` 在生成 `usdUtils.Material` 后，根据 `self.useMaterialX` 选择调用 `makeUsdMaterialX()` 或 `makeUsdMaterial()`【F:usdzconvert/usdStageWithGlTF.py†L633-L720】。
-- 若启用 MaterialX，打包 `.usdz` 时应同时复制所需的 `.mtlx` 库文件，确保运行时可以解析【F:usdzconvert/usdzconvert†L802-L806】。
+ - 若启用 MaterialX，打包 `.usdz` 时应同时复制所需的 `.mtlx` 库文件，确保运行时可以解析【F:usdzconvert/usdzconvert†L802-L806】。
 
-通过以上修改，命令行添加 `-useMaterialX` 后即可在转换阶段生成基于 MaterialX 的 `UsdShade.Material` 网络，同时保持旧接口与 UsdPreviewSurface 的兼容。 
+通过以上修改，命令行添加 `-useMaterialX` 后即可在转换阶段生成基于 MaterialX 的 `UsdShade.Material` 网络，同时保持旧接口与 UsdPreviewSurface 的兼容。
+
+## 5. 参数映射
+生成 `standard_surface` 节点时，部分输入名称与 `UsdPreviewSurface` 不同，代码中进行了以下映射：
+
+| glTF 输入 | MaterialX 输入 |
+|-----------|----------------|
+| `diffuseColor` | `base_color` |
+| `metallic` | `metalness` |
+| `roughness` | `specular_roughness` |
+| `opacity` | `opacity` |
+| `emissiveColor` | `emission_color` |
+
+这样可确保与 glTF PBR 参数一致的数值在 MaterialX 网络中被正确解析。
