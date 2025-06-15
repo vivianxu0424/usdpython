@@ -20,6 +20,8 @@ class InputName:
     occlusion = 'occlusion'
     clearcoat = 'clearcoat'
     clearcoatRoughness = 'clearcoatRoughness'
+    sheenColor = 'sheenColor'
+    sheenRoughness = 'sheenRoughness'
 
 class NodeManager:
     def __init__(self):
@@ -28,9 +30,10 @@ class NodeManager:
 class Input:
     names = [InputName.normal, InputName.diffuseColor, InputName.opacity,
              InputName.emissiveColor, InputName.metallic, InputName.roughness,
-             InputName.occlusion, InputName.clearcoat, InputName.clearcoatRoughness]
-    channels = ['rgb','rgb','a','rgb','r','r','r','r','r']
-    types = [object]*9
+             InputName.occlusion, InputName.clearcoat, InputName.clearcoatRoughness,
+             InputName.sheenColor, InputName.sheenRoughness]
+    channels = ['rgb','rgb','a','rgb','r','r','r','r','r','rgb','r']
+    types = [object]*11
 
 class Material:
     def __init__(self, name):
