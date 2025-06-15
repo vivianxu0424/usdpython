@@ -13,5 +13,5 @@ def check_shader(usdz_path):
                 shader_id = shader.GetIdAttr().Get()
                 print(prim.GetPath(), ":", shader_id)
 
-check_shader("cube_surface.usdz")   # 应输出 UsdPreviewSurface
-check_shader("cube_mtlx.usdz") # 应输出 ND_standard_surface_surfaceshader
+check_shader("sphere_surface.usdz")   # 应输出 UsdPreviewSurface
+check_shader("sphere_mtlx.usdz") # 应输出 ND_standard_surface_surfaceshader
