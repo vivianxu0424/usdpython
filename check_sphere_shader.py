@@ -27,6 +27,12 @@ def convert(src, dst, use_mtlx=False):
     subprocess.check_call(cmd)
 
 
+def export_gltf(glb_path, out_path):
+    """Convert a GLB file to a JSON-based .gltf for inspection."""
+    gltf = GLTF2().load(str(glb_path))
+    gltf.save(str(out_path))
+
+
 def export_usda(usd_path, out_path):
     stage = Usd.Stage.Open(str(usd_path))
     stage.GetRootLayer().Export(str(out_path))
@@ -70,6 +76,8 @@ def check_material(expected, actual):
 
 def main():
     src = Path('glb_for_testing/sphere.glb')
+    # Also export a JSON-based glTF for easier inspection
+    export_gltf(src, src.with_suffix('.gltf'))
     expected = gltf_material_info(src)
     print('Expected material info:', expected)
 
