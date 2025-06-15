@@ -480,17 +480,10 @@ class Material:
             if InputName.normal == inputName and gfVec3d == Gf.Vec3d(0, 0, 1.0):
                 return True
         else:
-            if InputName.metallic == inputName and float(input) == 0.0:
-                return True
-            if InputName.roughness == inputName and float(input) == 0.5:
-                return True
+            # 保留金属度、粗糙度和透明度等数值，即便它们与默认值一致
             if InputName.clearcoat == inputName and float(input) == 0.0:
                 return True
             if InputName.clearcoatRoughness == inputName and float(input) == 0.01:
-                return True
-            if InputName.opacity == inputName and float(input) == 1.0:
-                return True
-            if InputName.occlusion == inputName and float(input) == 1.0:
                 return True
         return False
 
@@ -544,6 +537,14 @@ class Material:
 
         input = self.inputs[inputName]
         inputType = Input.types[inputIdx]
+        # MaterialX `standard_surface` 参数名称映射
+        mtlxName = {
+            InputName.diffuseColor: 'base_color',
+            InputName.metallic: 'metalness',
+            InputName.roughness: 'specular_roughness',
+            InputName.opacity: 'opacity',
+            InputName.emissiveColor: 'emission_color',
+        }.get(inputName, inputName)
 
         if isinstance(input, Map):
             map = input
@@ -551,12 +552,12 @@ class Material:
             channels = map.channels if len(map.channels) == len(defaultChannels) else defaultChannels
             matPath = str(surfaceShader.GetPath())
             textureShader = self._makeUsdUVTexture(matPath, map, inputName, channels, None, usdStage)
-            surfaceShader.CreateInput(inputName, inputType).ConnectToSource(textureShader.GetOutput(channels))
+            surfaceShader.CreateInput(mtlxName, inputType).ConnectToSource(textureShader.GetOutput(channels))
         elif isinstance(input, list):
             gfVec3d = Gf.Vec3d(float(input[0]), float(input[1]), float(input[2]))
-            surfaceShader.CreateInput(inputName, inputType).Set(gfVec3d)
+            surfaceShader.CreateInput(mtlxName, inputType).Set(gfVec3d)
         else:
-            surfaceShader.CreateInput(inputName, inputType).Set(float(input))
+            surfaceShader.CreateInput(mtlxName, inputType).Set(float(input))
 
 
 
