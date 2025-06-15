@@ -21,7 +21,13 @@ def runValidators(filename, verboseOutput, errorData):
             skipARKitRootLayerCheck=False, rootPackageOnly=False, 
             skipVariants=False, verbose=False)
 
-    checker.CheckCompliance(filename)
+    try:
+        checker.CheckCompliance(filename)
+    except Tf.ErrorException as err:
+        print("Warning: Failed to run USD compliance check:", err)
+        errorData.append({"code": "PXR_COMPLIANCE_CHECK_ERROR"})
+        return False
+
     errors = checker.GetErrors()
     failedChecks = checker.GetFailedChecks()
     for rule in checker._rules:
