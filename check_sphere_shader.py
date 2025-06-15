@@ -73,8 +73,9 @@ def main():
     expected = gltf_material_info(src)
     print('Expected material info:', expected)
 
-    surface = Path('sphere_surface.usdz')
-    mtlx = Path('sphere_mtlx.usdz')
+    # use .usdc to avoid ARKit validation during conversion
+    surface = Path('sphere_surface.usdc')
+    mtlx = Path('sphere_mtlx.usdc')
 
     convert(src, surface)
     convert(src, mtlx, True)
