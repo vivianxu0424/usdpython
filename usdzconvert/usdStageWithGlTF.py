@@ -709,6 +709,15 @@ class glTFConverter:
                 if 'clearcoatRoughnessFactor' in clearcoatExt:
                     material.inputs[usdUtils.InputName.clearcoatRoughness] = clearcoatExt['clearcoatRoughnessFactor']
 
+            if 'extensions' in gltfMaterial and 'KHR_materials_sheen' in gltfMaterial['extensions']:
+                sheenExt = gltfMaterial['extensions']['KHR_materials_sheen']
+                if 'sheenColorFactor' in sheenExt:
+                    material.inputs[usdUtils.InputName.sheenColor] = sheenExt['sheenColorFactor']
+                if 'sheenRoughnessFactor' in sheenExt:
+                    material.inputs[usdUtils.InputName.sheenRoughness] = sheenExt['sheenRoughnessFactor']
+                self.processTexture(sheenExt, 'sheenColorTexture', usdUtils.InputName.sheenColor, 'rgb', material, sheenExt.get('sheenColorFactor'))
+                self.processTexture(sheenExt, 'sheenRoughnessTexture', usdUtils.InputName.sheenRoughness, 'a', material, sheenExt.get('sheenRoughnessFactor'))
+
             self.processTexture(gltfMaterial, 'normalTexture', usdUtils.InputName.normal, 'rgb', material)
             self.processTexture(gltfMaterial, 'occlusionTexture', usdUtils.InputName.occlusion, 'r', material) #TODO: add occlusion scale
 

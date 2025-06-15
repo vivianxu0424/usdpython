@@ -22,7 +22,7 @@ for gltfMaterial in self.gltf['materials'] if 'materials' in self.gltf else []:
 在该函数内部主要完成以下任务：
 1. 根据 `alphaMode` 设置 `opacity` 或 `opacityThreshold`。
 2. 读取 `pbrMetallicRoughness` 或 `KHR_materials_pbrSpecularGlossiness`，并通过 `processTexture()` 处理 `baseColorTexture`、`metallicRoughnessTexture` 等纹理。
-3. 解析扩展如 `KHR_materials_clearcoat`，填充 `clearcoat`、`clearcoatRoughness`。
+3. 解析扩展如 `KHR_materials_clearcoat`、`KHR_materials_sheen`，填充 `clearcoat`、`clearcoatRoughness`、`sheenColor`、`sheenRoughness`。
 4. 处理 `normalTexture`、`occlusionTexture`、`emissiveTexture` 等其它纹理和属性。
 
 `processTexture()` 会根据 uri 或 bufferView 保存贴图文件、设置包裹模式和 UV 变换，并将结果写入 `material.inputs`。

@@ -229,14 +229,21 @@ class InputName:
     occlusion = 'occlusion'
     clearcoat = 'clearcoat'
     clearcoatRoughness = 'clearcoatRoughness'
+    sheenColor = 'sheenColor'
+    sheenRoughness = 'sheenRoughness'
 
 
 
 class Input:
-    names = [InputName.normal, InputName.diffuseColor, InputName.opacity, InputName.emissiveColor, InputName.metallic, InputName.roughness, InputName.occlusion, InputName.clearcoat, InputName.clearcoatRoughness]
-    channels = ['rgb', 'rgb', 'a', 'rgb', 'r', 'r', 'r', 'r', 'r']
-    types = [Sdf.ValueTypeNames.Normal3f, Sdf.ValueTypeNames.Color3f, Sdf.ValueTypeNames.Float, 
-        Sdf.ValueTypeNames.Color3f, Sdf.ValueTypeNames.Float, Sdf.ValueTypeNames.Float, Sdf.ValueTypeNames.Float, Sdf.ValueTypeNames.Float, Sdf.ValueTypeNames.Float]
+    names = [InputName.normal, InputName.diffuseColor, InputName.opacity,
+        InputName.emissiveColor, InputName.metallic, InputName.roughness,
+        InputName.occlusion, InputName.clearcoat, InputName.clearcoatRoughness,
+        InputName.sheenColor, InputName.sheenRoughness]
+    channels = ['rgb', 'rgb', 'a', 'rgb', 'r', 'r', 'r', 'r', 'r', 'rgb', 'r']
+    types = [Sdf.ValueTypeNames.Normal3f, Sdf.ValueTypeNames.Color3f, Sdf.ValueTypeNames.Float,
+        Sdf.ValueTypeNames.Color3f, Sdf.ValueTypeNames.Float, Sdf.ValueTypeNames.Float,
+        Sdf.ValueTypeNames.Float, Sdf.ValueTypeNames.Float, Sdf.ValueTypeNames.Float,
+        Sdf.ValueTypeNames.Color3f, Sdf.ValueTypeNames.Float]
 
 
 
@@ -479,11 +486,15 @@ class Material:
                 return True
             if InputName.normal == inputName and gfVec3d == Gf.Vec3d(0, 0, 1.0):
                 return True
+            if InputName.sheenColor == inputName and gfVec3d == Gf.Vec3d(0, 0, 0):
+                return True
         else:
             # 保留金属度、粗糙度和透明度等数值，即便它们与默认值一致
             if InputName.clearcoat == inputName and float(input) == 0.0:
                 return True
             if InputName.clearcoatRoughness == inputName and float(input) == 0.01:
+                return True
+            if InputName.sheenRoughness == inputName and float(input) == 0.0:
                 return True
         return False
 
@@ -544,6 +555,8 @@ class Material:
             InputName.roughness: 'specular_roughness',
             InputName.opacity: 'opacity',
             InputName.emissiveColor: 'emission_color',
+            InputName.sheenColor: 'sheen_color',
+            InputName.sheenRoughness: 'sheen_roughness',
         }.get(inputName, inputName)
 
         if isinstance(input, Map):
