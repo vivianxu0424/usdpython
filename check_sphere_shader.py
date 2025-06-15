@@ -12,11 +12,16 @@ def gltf_material_info(path):
     metallic = pbr.metallicFactor if pbr.metallicFactor is not None else 1.0
     roughness = pbr.roughnessFactor if pbr.roughnessFactor is not None else 1.0
     alpha = mat.alphaCutoff if mat.alphaMode == 'MASK' else 1.0
+    sheen = mat.extensions.get('KHR_materials_sheen', {}) if mat.extensions else {}
+    sheen_color = sheen.get('sheenColorFactor', [0.0, 0.0, 0.0])
+    sheen_rough = sheen.get('sheenRoughnessFactor', 0.0)
     return {
         'diffuseColor': base_color[:3],
         'metallic': metallic,
         'roughness': roughness,
         'opacity': alpha,
+        'sheenColor': sheen_color,
+        'sheenRoughness': sheen_rough
     }
 
 
@@ -52,9 +57,15 @@ def usd_shader_inputs(path, shader_id):
                 continue
             result = {}
             if shader_id == 'ND_standard_surface_surfaceshader':
-                names = ['base_color', 'metalness', 'specular_roughness', 'opacity', 'normal']
+                names = [
+                    'base_color', 'metalness', 'specular_roughness',
+                    'opacity', 'normal', 'sheen_color', 'sheen_roughness'
+                ]
             else:
-                names = ['diffuseColor', 'metallic', 'roughness', 'opacity', 'normal']
+                names = [
+                    'diffuseColor', 'metallic', 'roughness',
+                    'opacity', 'normal', 'sheenColor', 'sheenRoughness'
+                ]
             for name in names:
                 inp = shader.GetInput(name)
                 if inp and inp.GetAttr().HasAuthoredValue():
@@ -75,7 +86,7 @@ def check_material(expected, actual):
 
 
 def main():
-    src = Path('glb_for_testing/sphere.glb')
+    src = Path('glb_for_testing/sphere_sheen.glb')
     # Also export a JSON-based glTF for easier inspection
     export_gltf(src, src.with_suffix('.gltf'))
     expected = gltf_material_info(src)
@@ -102,6 +113,8 @@ def main():
         'metallic': mtlx_inputs.get('metalness'),
         'roughness': mtlx_inputs.get('specular_roughness'),
         'opacity': mtlx_inputs.get('opacity'),
+        'sheenColor': mtlx_inputs.get('sheen_color'),
+        'sheenRoughness': mtlx_inputs.get('sheen_roughness')
     }
     check_material(expected, mapped)
     print('All checks passed.')
