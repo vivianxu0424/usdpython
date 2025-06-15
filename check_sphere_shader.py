@@ -40,7 +40,11 @@ def usd_shader_inputs(path, shader_id):
             if shader.GetIdAttr().Get() != shader_id:
                 continue
             result = {}
-            for name in ['diffuseColor', 'metallic', 'roughness', 'opacity', 'normal']:
+            if shader_id == 'ND_standard_surface_surfaceshader':
+                names = ['base_color', 'metalness', 'specular_roughness', 'opacity', 'normal']
+            else:
+                names = ['diffuseColor', 'metallic', 'roughness', 'opacity', 'normal']
+            for name in names:
                 inp = shader.GetInput(name)
                 if inp and inp.GetAttr().HasAuthoredValue():
                     result[name] = inp.GetAttr().Get()
@@ -76,7 +80,13 @@ def main():
     print('MaterialX shader inputs:', mtlx_inputs)
 
     check_material(expected, surface_inputs)
-    check_material(expected, mtlx_inputs)
+    mapped = {
+        'diffuseColor': mtlx_inputs.get('base_color'),
+        'metallic': mtlx_inputs.get('metalness'),
+        'roughness': mtlx_inputs.get('specular_roughness'),
+        'opacity': mtlx_inputs.get('opacity'),
+    }
+    check_material(expected, mapped)
     print('All checks passed.')
 
 
