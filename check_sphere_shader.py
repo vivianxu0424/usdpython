@@ -62,6 +62,7 @@ def check_material(expected, actual):
 def main():
     src = Path('glb_for_testing/sphere.glb')
     expected = gltf_material_info(src)
+    print('Expected material info:', expected)
 
     surface = Path('sphere_surface.usdc')
     mtlx = Path('sphere_mtlx.usdc')
@@ -70,7 +71,9 @@ def main():
     convert(src, mtlx, True)
 
     surface_inputs = usd_shader_inputs(surface, 'UsdPreviewSurface')
+    print('Surface shader inputs:', surface_inputs)
     mtlx_inputs = usd_shader_inputs(mtlx, 'ND_standard_surface_surfaceshader')
+    print('MaterialX shader inputs:', mtlx_inputs)
 
     check_material(expected, surface_inputs)
     check_material(expected, mtlx_inputs)
