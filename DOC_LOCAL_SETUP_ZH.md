@@ -72,5 +72,8 @@ python samples/102_mesh.py
 如需自定义 MaterialX 库路径，可设置 `MATERIALX_LIB_PATHS` 环境变量，所有 `.mtlx` 文件
 会在转换时一并复制到输出包内。
 
+若运行 `usdzconvert` 时出现 `shaderDefs.usda` 相关警告，可忽略该信息，
+工具会继续生成 `.usdz` 文件并返回成功退出码。
+
 ---
 以上步骤即完成了本地环境搭建与测试流程。
