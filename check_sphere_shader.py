@@ -27,6 +27,11 @@ def convert(src, dst, use_mtlx=False):
     subprocess.check_call(cmd)
 
 
+def export_usda(usd_path, out_path):
+    stage = Usd.Stage.Open(str(usd_path))
+    stage.GetRootLayer().Export(str(out_path))
+
+
 def usd_shader_inputs(path, shader_id):
     stage = Usd.Stage.Open(str(path))
     for prim in stage.Traverse():
@@ -68,11 +73,14 @@ def main():
     expected = gltf_material_info(src)
     print('Expected material info:', expected)
 
-    surface = Path('sphere_surface.usdc')
-    mtlx = Path('sphere_mtlx.usdc')
+    surface = Path('sphere_surface.usdz')
+    mtlx = Path('sphere_mtlx.usdz')
 
     convert(src, surface)
     convert(src, mtlx, True)
+
+    export_usda(surface, surface.with_suffix('.usda'))
+    export_usda(mtlx, mtlx.with_suffix('.usda'))
 
     surface_inputs = usd_shader_inputs(surface, 'UsdPreviewSurface')
     print('Surface shader inputs:', surface_inputs)
