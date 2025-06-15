@@ -21,7 +21,7 @@
 
 ## 3. 打包与校验
 - `usdzconvert` 收到生成的 `.usdc` 临时文件后，使用 `UsdUtils.CreateNewARKitUsdzPackage` 将其打包为 `.usdz`。
-- 若目标是 `.usdz`，脚本还会在结束前运行 `usdARKitChecker` 对生成文件进行 ARKit 兼容性校验。
+- 若目标是 `.usdz`，脚本还会在结束前运行 `usdARKitChecker` 对生成文件进行 ARKit 兼容性校验。如校验过程中缺失 `shaderDefs.usda` 等资源，脚本会输出警告并继续完成转换。
 - 转换完成后删除临时目录并输出最终文件路径。
 
 ---
