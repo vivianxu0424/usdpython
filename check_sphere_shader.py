@@ -11,7 +11,10 @@ def gltf_material_info(path):
     base_color = pbr.baseColorFactor or [1.0, 1.0, 1.0, 1.0]
     metallic = pbr.metallicFactor if pbr.metallicFactor is not None else 1.0
     roughness = pbr.roughnessFactor if pbr.roughnessFactor is not None else 1.0
-    alpha = mat.alphaCutoff if mat.alphaMode == 'MASK' else 1.0
+    if mat.alphaMode == 'MASK':
+        alpha = mat.alphaCutoff
+    else:
+        alpha = base_color[3]
     sheen = mat.extensions.get('KHR_materials_sheen', {}) if mat.extensions else {}
     sheen_color = sheen.get('sheenColorFactor', [0.0, 0.0, 0.0])
     sheen_rough = sheen.get('sheenRoughnessFactor', 0.0)
